@@ -1,5 +1,5 @@
 
-.calc-button {
+.calcButton {
   border: none;
   background-color: #61B34F;
   color: white;
@@ -26,7 +26,7 @@
 #clear {
   grid-row: 1;
 }
-#display-area{
+#displayArea{
   grid-column: 2 / 6;
   grid-row: 1;
 }
