@@ -1,42 +1,84 @@
 
 .calc-button {
-  border: 2px solid rgb(233,171,88);
-  border-radius: 5px;
-  background-color: rgba(233,171,88,.5);
-  padding: 1em;
-  color: #d9480f;
+  border: none;
+  background-color: #61B34F;
+  color: white;
+  text-align: center;
+  font-size: calc(2vw + 2vh);
+  line-height: 20vh;
+  font-family: sans-serif;
+  font-weight: 100;
+}
+
+.function {
+  background-color: #82C276;
+  color: darkgreen;
 }
 
 #calculator {
-  max-width: 940px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 10px;
-  grid-auto-rows: minmax(100px, auto);
+  grid-gap: 1px;
+  grid-auto-rows: 19vh;
+  grid-auto-columns: 19.5vw;
 }
 
 #clear {
-  grid-column: 1;
   grid-row: 1;
 }
-
 #display-area{
-  grid-column: 2 / 4;
+  grid-column: 2 / 6;
   grid-row: 1;
 }
 
-#seven {
-  grid-column: 1;
-  grid-row: 2;
+#memory {
+  grid-row: 1 / 2;
 }
 
-#eight{
+#modulo {
+  grid-row: 2/4;
+  line-height: 40vh;
+}
+
+#root {
+  grid-row: 4/6;
+  line-height: 40vh;
+}
+
+
+/* ROWS */
+
+#seven , #eight , #nine , #divide {
+  grid-row: 2;
+}
+#four , #five , #six , #times {
+  grid-row: 3;
+}
+#one , #two , #three , #minus {
+  grid-row: 4;
+}
+#zero , #dot , #equalsign , #plus {
+  grid-row: 5;
+}
+
+/*COLUMNS*/
+
+#clear , #seven , #four , #one , #zero {
   grid-column: 2;
-  grid-row: 2;
 }
 
-#nine{
+#eight , #five , #two , #dot {
   grid-column: 3;
-  grid-row: 2;
+}
+
+#nine , #six , #three , #equalsign {
+  grid-column: 4;
+}
+
+#divide , #times , #minus , #plus {
+  grid-column: 5;
+}
+
+#modulo , #root , #memory {
+  grid-column: 1;
 }
