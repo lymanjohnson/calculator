@@ -29,7 +29,7 @@ buttons.divide.value = "/";
 function clickFunction() {
     if (this.type == "normal") {
       if(newEntry == true){
-        if(this.type == "number") {buttons.displayArea.textContent="";}
+        if(this.type == "number") {buttons.displayArea.textContent=this.value;}
         newEntry = false;
       }
       buttons.displayArea.textContent += this.value;
