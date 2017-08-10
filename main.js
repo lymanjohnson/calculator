@@ -39,7 +39,7 @@ function clickNumber(thisButton) {
 
   if ((lastPress.type=="function")&&(thisButton.value==")")) {womp(thisButton)}
   else if (thisButton.value==")" && closeParenCount>=openParenCount){womp(thisButton)}
-  else if (lastPress.value==")" && thisButton.type =="number" && !newEntry){womp(thisButton)}
+  else if (lastPress.value==")" && thisButton.type =="number" && thisButton.value!=")" && !newEntry){womp(thisButton)}
   else if (lastPress.value=="(" && thisButton.value==")"){womp(thisButton)}
   else if (newEntry) {
     buttons.displayArea.textContent = thisButton.value;
@@ -95,6 +95,7 @@ function clickMemory(thisButton) {
   newEntry = false;
   refreshLastPress();
   okayToDot();
+  if (buttons.displayArea.textContent==""){buttons.clear.textContent = "CM"}
 }
 
 function clickClear(thisButton) {
@@ -108,6 +109,7 @@ function clickClear(thisButton) {
     anotherDotAllowed = true;
   }
   else {
+    buttons.clear.textContent = "CM";
     wrapper.classList.remove("flipped");
     wrapper.classList.add("flip");
     setTimeout(function () {
