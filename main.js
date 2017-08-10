@@ -52,6 +52,7 @@ buttons.power.value = "^";
 buttons.modulo.value = "%";
 buttons.times.value = "*";
 buttons.divide.value = "/";
+buttons.backspace.value = "backspace";
 
 
 function clicker() {
@@ -61,6 +62,9 @@ function clicker() {
     else if (this.value == "CM")      {clickClear();}
     else if (this.value == "MEM")     {clickMemory();}
     else if (this.value == "=")       {clickEquals();}
+    else if (this.value == "backspace"){
+      clickBackspace();
+    }
 }
 
 
@@ -161,19 +165,24 @@ function clickEquals(){
         memoryLog.push(answer);}
       buttons.displayArea.textContent = eval(answer);
     }
-  // }
-  // catch(e){
-  //   console.log("error!");
-  // }
+
 }
 
-// CATCH:
-// newEntry = true;
-// buttons.displayArea.textContent = "";
-// buttons.displayArea.classList.remove("flipped");
-// buttons.displayArea.classList.add("flip");
-//
-// setTimeout(function () {
-//   buttons.displayArea.classList.remove("flip");
-//   buttons.displayArea.classList.add("flipped");
-// }, 500);
+function clickBackspace(){
+  let display = buttons.displayArea.textContent;
+  if (display = "") {}
+  else {
+    display = display.substr(0, display.length - 1);
+    let lastChar = display.slice(-1);
+    if (lastChar == "^") {}
+    else if (lastChar == ""){}
+    else if (lastChar == ""){}
+    else if (lastChar == ""){}
+    else if (lastChar == ""){}
+    else if (lastChar == ""){}
+    else if (lastChar == ""){}
+
+
+    else {lastPress = lastChar}
+  }
+}
