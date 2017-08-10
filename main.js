@@ -67,6 +67,8 @@ function clicker() {
 function clickNumber(thisButton) {
   if ((lastPress.type=="function")&&(thisButton.value==")")) {}
   else if (thisButton.value==")" && closeParenCount>=openParenCount){}
+  else if (lastPress.value==")" && thisButton.type =="number" && thisButton.value!=")" && !newEntry){}
+  else if (lastPress.value=="(" && thisButton.value==")"){}
   else if (newEntry) {
     buttons.displayArea.textContent = thisButton.value;
     newEntry = false;
@@ -76,10 +78,12 @@ function clickNumber(thisButton) {
     if(thisButton.value == ")"){closeParenCount+=1}
   }
   else {
-    if (thisButton.value=="(" && (lastPress.type != "function" && buttons.displayArea.textContent != "")){}
+    // if (thisButton.value=="(" && ((lastPress.type != "function" || lastPress.value != "(") && buttons.displayArea.textContent != "")){}
+    if (thisButton.value=="(" && lastPress.value != "(" && lastPress.type != "function" ) {}
     else{
       buttons.displayArea.textContent += thisButton.value;
       lastPress = thisButton;
+      newEntry = false;
       buttons.clear.textContent = "C"
       if(thisButton.value == "("){openParenCount+=1}
       if(thisButton.value == ")"){closeParenCount+=1}
@@ -89,8 +93,8 @@ function clickNumber(thisButton) {
 
 function clickFunction(thisButton) {
     console.log(lastPress);
-    if (buttons.displayArea.textContent == "" && thisButton.value != "-"){}
-
+    if (buttons.displayArea.textContent == "" && thisButton.value != "-" && thisButton.value != "+") {}
+    else if ((buttons.displayArea.textContent == "+" || buttons.displayArea.textContent == "-") && thisButton.value != "-" && thisButton.value != "+"){}
     else if ((lastPress.value=="(")&&(thisButton.value=="*" || thisButton.value=="/" || lastPress.value==".")){}
 
     else if (lastPress.value == "."){}
@@ -113,6 +117,8 @@ function clickMemory() {
   buttons.displayArea.textContent = memoryLog.pop();
   openParenCount = 0;
   closeParenCount = 0;
+  newEntry = false;
+  lastPress = "";
 }
 
 function clickClear() {
@@ -121,6 +127,8 @@ function clickClear() {
     buttons.clear.textContent = "CM";
     openParenCount = 0;
     closeParenCount = 0;
+    newEntry = true;
+    lastPress = "";
   }
   else {
     wrapper.classList.remove("flipped");
@@ -132,6 +140,8 @@ function clickClear() {
     memoryLog = [0];
     openParenCount = 0;
     closeParenCount = 0;
+    newEntry = true;
+    lastPress = "";
   };
 }
 
@@ -139,9 +149,10 @@ function clickEquals(){
   // try{
     let answer = buttons.displayArea.textContent;
     answer = answer.replace("^","**");
-    console.log("answer:",answer);
 
     if(lastPress.value == "(" || lastPress.type=="function" || lastPress.value == "."){}
+
+    else if (openParenCount != closeParenCount){}
 
     else{
       newEntry = true;
