@@ -56,7 +56,7 @@ buttons.backspace.value = "backspace";
 
 
 function clicker() {
-    console.log(this.type,this.value);
+    console.log(this);
     if      (this.type == "number")   {clickNumber(this);}
     else if (this.type == "function") {clickFunction(this)}
     else if (this.value == "CM")      {clickClear();}
@@ -170,19 +170,36 @@ function clickEquals(){
 
 function clickBackspace(){
   let display = buttons.displayArea.textContent;
+  console.log(display);
   if (display = "") {}
   else {
-    display = display.substr(0, display.length - 1);
-    let lastChar = display.slice(-1);
-    if (lastChar == "^") {}
-    else if (lastChar == ""){}
-    else if (lastChar == ""){}
-    else if (lastChar == ""){}
-    else if (lastChar == ""){}
-    else if (lastChar == ""){}
-    else if (lastChar == ""){}
+    if (buttons.displayArea.textContent.slice(-1) == ")") {closeParenCount--}
+    if (buttons.displayArea.textContent.slice(-1) == "(") {openParenCount--}
+    buttons.displayArea.textContent = buttons.displayArea.textContent.substr(0, buttons.displayArea.textContent.length - 1);
+    console.log(display);
+    let lastChar = buttons.displayArea.textContent.slice(-1);
+    console.log("lastChar",lastChar);
+    if      (lastChar == "1") {lastPress   =  buttons.one}
+    else if (lastChar == "2")  {lastPress  =  buttons.two}
+    else if (lastChar == "3")  {lastPress  =  buttons.three}
+    else if (lastChar == "4")  {lastPress  =  buttons.four}
+    else if (lastChar == "5")  {lastPress  =  buttons.five}
+    else if (lastChar == "6")  {lastPress  =  buttons.six}
+    else if (lastChar == "7")  {lastPress  =  buttons.seven}
+    else if (lastChar == "8")  {lastPress  =  buttons.eight}
+    else if (lastChar == "9")  {lastPress  =  buttons.nine}
+    else if (lastChar == "0")  {lastPress  =  buttons.zero}
+    else if (lastChar == ".")  {lastPress  =  buttons.dot}
+    else if (lastChar == "(")  {lastPress  =  buttons.openparen}
+    else if (lastChar == ")")  {lastPress  =  buttons.closedparen}
+    else if (lastChar == "%")  {lastPress  =  buttons.modulo}
+    else if (lastChar == "^")  {lastPress  =  buttons.power}
+    else if (lastChar == "+")  {lastPress  =  buttons.plus}
+    else if (lastChar == "-")  {lastPress  =  buttons.minus}
+    else if (lastChar == "/")  {lastPress  =  buttons.divide}
+    else if (lastChar == "*")  {lastPress  =  buttons.times}
+    console.log("lastPress.value",lastPress.value);
+    console.log("lastPress.type",lastPress.type);
 
-
-    else {lastPress = lastChar}
   }
 }
