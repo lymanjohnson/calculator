@@ -10,33 +10,42 @@
      <meta name="MobileOptimized" content="320" />
      <!-- Use maximum-scale and user-scalable at your own risk. It disables pinch/zoom. Think about usability/accessibility before including.-->
      <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /> -->
-     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+     <!-- Place favicon.ico and apple-touch-icon.png in the power directory -->
      <link rel="stylesheet" type="text/css" href="style.css">
+     <link href="https://fonts.googleapis.com/css?family=Cousine" rel="stylesheet">
    </head>
    <body>
      <div id="wrapper">
        <div id="calculator">
-         <div class="calcButton command" id="clear">C</div>
-         <div class="calcButton display" id="displayArea"></div>
-         <div class="calcButton number" id="seven">7</div>
-         <div class="calcButton number" id="eight">8</div>
-         <div class="calcButton number" id="nine">9</div>
-         <div class="calcButton function" id="divide">/</div>
-         <div class="calcButton number" id="four">4</div>
-         <div class="calcButton number" id="five">5</div>
-         <div class="calcButton number" id="six">6</div>
-         <div class="calcButton function" id="times">x</div>
-         <div class="calcButton number" id="one">1</div>
-         <div class="calcButton number" id="two">2</div>
-         <div class="calcButton number" id="three">3</div>
-         <div class="calcButton function" id="minus">-</div>
-         <div class="calcButton number" id="zero">0</div>
-         <div class="calcButton number" id="dot">.</div>
-         <div class="calcButton command" id="equalsign">=</div>
-         <div class="calcButton function" id="plus">+</div>
-         <div class="calcButton function bonus" id="modulo">x%y</div>
-         <div class="calcButton function bonus" id="root"><sup>y</sup>&radic;<span style="text-decoration:overline;">x</span></div>
-         <div class="calcButton bonus" id="memory">mem</div>
+
+         <div class="calcButton special display" id="displayArea" contenteditable="true"></div>
+
+         <div class="calcButton special command" id="equalsign">=</div>
+         <div class="calcButton special command" id="clear">CE</div>
+         <div class="calcButton special command" id="memory">mem</div>
+
+         <div class="calcButton normal number" id="zero">0</div>
+         <div class="calcButton normal number" id="one">1</div>
+         <div class="calcButton normal number" id="two">2</div>
+         <div class="calcButton normal number" id="three">3</div>
+         <div class="calcButton normal number" id="four">4</div>
+         <div class="calcButton normal number" id="five">5</div>
+         <div class="calcButton normal number" id="six">6</div>
+         <div class="calcButton normal number" id="seven">7</div>
+         <div class="calcButton normal number" id="eight">8</div>
+         <div class="calcButton normal number" id="nine">9</div>
+
+         <div class="calcButton normal number" id="dot">.</div>
+         <div class="calcButton normal number" id="openparen">(</div>
+         <div class="calcButton normal number" id="closedparen">)</div>
+
+         <div class="calcButton normal function" id="plus">+</div>
+         <div class="calcButton normal function" id="minus">-</div>
+         <div class="calcButton normal function" id="times">x</div>
+         <div class="calcButton normal function" id="divide">&divide;</div>
+         <div class="calcButton normal function" id="power">x<sup>y</sup></div>
+         <div class="calcButton normal function" id="modulo">x%y</div>
+
        </div>
      </div>
 

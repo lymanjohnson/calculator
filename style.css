@@ -1,4 +1,5 @@
 
+
 .calcButton {
   border: none;
   background-color: #61B34F;
@@ -6,13 +7,18 @@
   text-align: center;
   font-size: calc(2vw + 2vh);
   line-height: 20vh;
-  font-family: sans-serif;
+  font-family: 'Cousine', monospace;
   font-weight: 100;
 }
 
 .function {
   background-color: #82C276;
   color: darkgreen;
+}
+
+#displayArea {
+  text-align: right;
+  padding-right: 1em;
 }
 
 #calculator {
@@ -23,47 +29,36 @@
   grid-auto-columns: 19.5vw;
 }
 
-#clear {
-  grid-row: 1;
-}
 #displayArea{
-  grid-column: 2 / 6;
-  grid-row: 1;
+  grid-column: 3 / 6;
 }
-
-#memory {
-  grid-row: 1 / 2;
-}
-
-#modulo {
-  grid-row: 2/4;
-  line-height: 40vh;
-}
-
-#root {
-  grid-row: 4/6;
-  line-height: 40vh;
-}
-
 
 /* ROWS */
 
-#seven , #eight , #nine , #divide {
+#displayArea , #memory, #clear {
+  grid-row: 1;
+  background-color: darkgreen;
+}
+
+#seven , #eight , #nine , #divide , #modulo{
   grid-row: 2;
 }
-#four , #five , #six , #times {
+#four , #five , #six , #times , #power{
   grid-row: 3;
 }
-#one , #two , #three , #minus {
+#one , #two , #three , #minus, #openparen {
   grid-row: 4;
 }
-#zero , #dot , #equalsign , #plus {
+#zero , #dot , #equalsign , #plus , #closedparen {
   grid-row: 5;
 }
 
 /*COLUMNS*/
+#clear , #openparen, #closedparen, #modulo , #power {
+  grid-column: 1;
+}
 
-#clear , #seven , #four , #one , #zero {
+#seven , #four , #one , #zero , #memory  {
   grid-column: 2;
 }
 
@@ -79,6 +74,12 @@
   grid-column: 5;
 }
 
-#modulo , #root , #memory {
-  grid-column: 1;
+.flip{
+  filter: grayscale(100%);
+  transition: .5s;
+}
+
+.flipped{
+  filter: none;
+  transition: .5s;
 }
