@@ -46,26 +46,46 @@ function clicker() {
     console.log(this.type,this.value);
     if      (this.type == "number")   {clickNumber(this);}
     else if (this.type == "function") {clickFunction(this)}
-    else if (this.value == "CE")      {clickClear();}
+    else if (this.value == "CM")      {clickClear();}
     else if (this.value == "MEM")     {clickMemory();}
     else if (this.value == "=")       {clickEquals();}
 }
 
 
 function clickNumber(thisButton) {
-  if (newEntry) {
+  if ((lastPress.type=="function")&&(thisButton.value==")")) {}
+  else if (newEntry) {
     buttons.displayArea.textContent = thisButton.value;
     newEntry = false;
+    lastPress = thisButton;
+    buttons.clear.textContent = "C"
   }
   else {
     buttons.displayArea.textContent += thisButton.value;
+    lastPress = thisButton;
+    buttons.clear.textContent = "C"
     }
-  lastPress = thisButton;
+
 }
 
 function clickFunction(thisButton) {
-    if (buttons.displayArea.textContent == "" || lastPress.type == "function"){};
-    else {buttons.displayArea.textContent += thisButton.value;}
+    console.log(lastPress);
+    if (buttons.displayArea.textContent == "" && thisButton.value != "-"){}
+    else if ((lastPress.value=="(")&&(thisButton.value=="*" || thisButton.value=="/" || lastPress.value==".")){}
+
+    else if (lastPress.value == "."){}
+
+    else if (lastPress.type == "function"){
+      buttons.displayArea.textContent = buttons.displayArea.textContent.substr(0, buttons.displayArea.textContent.length - 1)+thisButton.value;
+      buttons.clear.textContent = "C"
+      newEntry = false;
+    }
+    else {
+      buttons.displayArea.textContent += thisButton.value;
+      buttons.clear.textContent = "C"
+      lastPress = thisButton;
+      newEntry = false;
+    }
 }
 
 function clickMemory() {
@@ -76,7 +96,7 @@ function clickMemory() {
 function clickClear() {
   if (buttons.displayArea.textContent !== ""){
     buttons.displayArea.textContent = "";
-    buttons.clear.textContent = "CE";
+    buttons.clear.textContent = "CM";
   }
   else {
     wrapper.classList.remove("flipped");
@@ -90,10 +110,31 @@ function clickClear() {
 }
 
 function clickEquals(){
-  newEntry = true;
-  let answer = buttons.displayArea.textContent;
-  if (memoryLog[memoryLog.length-1] != answer){
-    console.log(memoryLog[memoryLog.length-1],answer);
-    memoryLog.push(answer);}
-  buttons.displayArea.textContent = eval(answer);
+  // try{
+    let answer = buttons.displayArea.textContent;
+
+    if(lastPress.value == "(" || lastPress.type=="function" || lastPress.value == "."){}
+
+    else{
+      newEntry = true;
+      if (memoryLog[memoryLog.length-1] != answer){
+        console.log(memoryLog[memoryLog.length-1],answer);
+        memoryLog.push(answer);}
+      buttons.displayArea.textContent = eval(answer);
+    }
+  // }
+  // catch(e){
+  //   console.log("error!");
+  // }
 }
+
+// CATCH:
+// newEntry = true;
+// buttons.displayArea.textContent = "";
+// buttons.displayArea.classList.remove("flipped");
+// buttons.displayArea.classList.add("flip");
+//
+// setTimeout(function () {
+//   buttons.displayArea.classList.remove("flip");
+//   buttons.displayArea.classList.add("flipped");
+// }, 500);
