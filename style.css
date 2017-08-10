@@ -1,5 +1,3 @@
-
-
 .number , .function , .special{
   border: none;
   background-color: #61B34F;
@@ -16,9 +14,15 @@
   color: darkgreen;
 }
 
+.special{
+  background-color: darkgreen;
+}
+
 #displayArea {
   text-align: right;
   padding-right: 1em;
+  /*border: .2vw solid darkgreen;
+  background-color: #82C276;*/
 }
 
 #wrapper {
@@ -49,6 +53,10 @@
   grid-row: 5;
 }
 
+#logo {
+  grid-row: 1;
+  grid-column: 1;
+}
 /* ROWS */
 
 
