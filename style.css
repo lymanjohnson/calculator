@@ -5,8 +5,8 @@
   background-color: #61B34F;
   color: white;
   text-align: center;
-  font-size: calc(2vw + 2vh);
-  line-height: 20vh;
+  font-size: calc(1.3vw + 1.5vh);
+  line-height: calc(1.6vw + 12vh);
   font-family: 'Cousine', monospace;
   font-weight: 100;
 }
@@ -21,57 +21,77 @@
   padding-right: 1em;
 }
 
+#wrapper {
+  width: 90vw;
+  margin-left: 1%;
+  /*margin-left: 2vw;*/
+  /*margin-right: 5vw; */
+  margin: none;
+  padding: none;
+}
+
 #calculator {
-  margin: 0 auto;
+  margin: none;
+  padding: none;
   display: grid;
-  grid-gap: 1px;
-  grid-auto-rows: 19vh;
-  grid-auto-columns: 19.5vw;
+  grid-gap: .2vw;
+  grid-auto-rows: 15vh;
+  grid-auto-columns: 15vw;
 }
 
 #displayArea{
-  grid-column: 3 / 6;
+  grid-column: 2 / 7;
+  grid-row: 1;
+}
+
+#equalsign {
+  grid-column: 5 /7;
+  grid-row: 5;
 }
 
 /* ROWS */
 
-#displayArea , #memory, #clear {
-  grid-row: 1;
-  background-color: darkgreen;
-}
 
-#seven , #eight , #nine , #divide , #modulo{
+#memory , #seven , #eight , #nine , #plus , #minus{
   grid-row: 2;
 }
-#four , #five , #six , #times , #power{
+
+#clear , #four , #five , #six , #times , #divide{
   grid-row: 3;
 }
-#one , #two , #three , #minus, #openparen {
+
+#backspace , #one , #two , #three , #power , #modulo {
   grid-row: 4;
 }
-#zero , #dot , #equalsign , #plus , #closedparen {
+
+#dot , #openparen , #zero , #closedparen {
   grid-row: 5;
 }
 
+
 /*COLUMNS*/
-#clear , #openparen, #closedparen, #modulo , #power {
+#memory , #clear , #backspace , #dot {
   grid-column: 1;
 }
 
-#seven , #four , #one , #zero , #memory  {
+#seven , #four , #one , #openparen {
   grid-column: 2;
 }
 
-#eight , #five , #two , #dot {
+#eight , #five , #two , #zero {
   grid-column: 3;
 }
 
-#nine , #six , #three , #equalsign {
+#nine , #six , #three , #closedparen {
   grid-column: 4;
 }
 
-#divide , #times , #minus , #plus {
+#plus , #times , #power{
   grid-column: 5;
+}
+
+#minus , #divide , #modulo{
+  grid-column: 6;
 }
 
 .flip{
