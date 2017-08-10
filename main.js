@@ -1,5 +1,3 @@
-
-
 calculator = document.getElementById("calculator");
 wrapper = document.getElementById("wrapper");
 
@@ -9,13 +7,13 @@ let memoryLog = [0];
 let newEntry = true;
 let openParenCount = 0;
 let closeParenCount = 0;
+let anotherDotAllowed = true;
 
 for (i=0;i<calculator.children.length;i++){
   let thisButton = calculator.children[i];
   thisButton.type = thisButton.classList[0];
   thisButton.value = thisButton.innerHTML;
   thisButton.addEventListener("click",clicker);
-
   buttons[thisButton.id] = thisButton;
 }
 
@@ -38,12 +36,14 @@ function clicker() {
 
 
 function clickNumber(thisButton) {
+
   if ((lastPress.type=="function")&&(thisButton.value==")")) {womp(thisButton)}
   else if (thisButton.value==")" && closeParenCount>=openParenCount){womp(thisButton)}
-  else if (lastPress.value==")" && thisButton.type =="number" && thisButton.value!=")" && !newEntry){womp(thisButton)}
+  else if (lastPress.value==")" && thisButton.type =="number" && !newEntry){womp(thisButton)}
   else if (lastPress.value=="(" && thisButton.value==")"){womp(thisButton)}
   else if (newEntry) {
     buttons.displayArea.textContent = thisButton.value;
+    // if(thisButton.value =="."){anotherDotAllowed = false;}
     newEntry = false;
     lastPress = thisButton;
     buttons.clear.textContent = "C"
@@ -52,7 +52,9 @@ function clickNumber(thisButton) {
   }
   else {
     if (thisButton.value=="(" && lastPress.value != "(" && lastPress.type != "function" ) {womp(thisButton)}
+    else if (thisButton.value == "." && anotherDotAllowed==false){womp(thisButton)}
     else{
+      if(thisButton.value =="."){anotherDotAllowed = false;}
       buttons.displayArea.textContent += thisButton.value;
       lastPress = thisButton;
       newEntry = false;
@@ -74,12 +76,14 @@ function clickFunction(thisButton) {
       buttons.displayArea.textContent = buttons.displayArea.textContent.substr(0, buttons.displayArea.textContent.length - 1)+thisButton.value;
       buttons.clear.textContent = "C"
       newEntry = false;
+      anotherDotAllowed = true;
     }
     else {
       buttons.displayArea.textContent += thisButton.value;
       buttons.clear.textContent = "C"
       lastPress = thisButton;
       newEntry = false;
+      anotherDotAllowed = true;
     }
 }
 
@@ -89,7 +93,8 @@ function clickMemory(thisButton) {
   openParenCount = 0;
   closeParenCount = 0;
   newEntry = false;
-  lastPress = "";
+  refreshLastPress();
+  okayToDot();
 }
 
 function clickClear(thisButton) {
@@ -100,6 +105,7 @@ function clickClear(thisButton) {
     closeParenCount = 0;
     newEntry = true;
     lastPress = "";
+    anotherDotAllowed = true;
   }
   else {
     wrapper.classList.remove("flipped");
@@ -117,7 +123,6 @@ function clickClear(thisButton) {
 }
 
 function clickEquals(thisButton){
-  // try{
     let answer = buttons.displayArea.textContent;
     answer = answer.replace("^","**");
 
@@ -131,40 +136,49 @@ function clickEquals(thisButton){
         memoryLog.push(answer);}
       buttons.displayArea.textContent = eval(answer);
     }
-
 }
 
 function clickBackspace(thisButton){
-  if (buttons.displayArea.textContent.length==1){buttons.clear.textContent = "CM"}
+
   if (buttons.displayArea.textContent == "") {
     buttons.clear.textContent = "CM"
     womp(thisButton)}
   else {
+    newEntry = false;
+    if (buttons.displayArea.textContent.length==1){buttons.clear.textContent = "CM"}
     if (buttons.displayArea.textContent.slice(-1) == ")") {closeParenCount--}
     if (buttons.displayArea.textContent.slice(-1) == "(") {openParenCount--}
+    if (buttons.displayArea.textContent.slice(-1) == ".") {anotherDotAllowed = false}
     buttons.displayArea.textContent = buttons.displayArea.textContent.substr(0, buttons.displayArea.textContent.length - 1);
-    let lastChar = buttons.displayArea.textContent.slice(-1);
-    if      (lastChar == "1") {lastPress   =  buttons.one}
-    else if (lastChar == "2")  {lastPress  =  buttons.two}
-    else if (lastChar == "3")  {lastPress  =  buttons.three}
-    else if (lastChar == "4")  {lastPress  =  buttons.four}
-    else if (lastChar == "5")  {lastPress  =  buttons.five}
-    else if (lastChar == "6")  {lastPress  =  buttons.six}
-    else if (lastChar == "7")  {lastPress  =  buttons.seven}
-    else if (lastChar == "8")  {lastPress  =  buttons.eight}
-    else if (lastChar == "9")  {lastPress  =  buttons.nine}
-    else if (lastChar == "0")  {lastPress  =  buttons.zero}
-    else if (lastChar == ".")  {lastPress  =  buttons.dot}
-    else if (lastChar == "(")  {lastPress  =  buttons.openparen}
-    else if (lastChar == ")")  {lastPress  =  buttons.closedparen}
-    else if (lastChar == "%")  {lastPress  =  buttons.modulo}
-    else if (lastChar == "^")  {lastPress  =  buttons.power}
-    else if (lastChar == "+")  {lastPress  =  buttons.plus}
-    else if (lastChar == "-")  {lastPress  =  buttons.minus}
-    else if (lastChar == "/")  {lastPress  =  buttons.divide}
-    else if (lastChar == "*")  {lastPress  =  buttons.times}
 
+    refreshLastPress();
+    okayToDot();
   }
+}
+
+function refreshLastPress(){
+  let lastChar = buttons.displayArea.textContent.slice(-1);
+  if      (lastChar == "1")  {lastPress   =  buttons.one}
+  else if (lastChar == "2")  {lastPress  =  buttons.two}
+  else if (lastChar == "3")  {lastPress  =  buttons.three}
+  else if (lastChar == "4")  {lastPress  =  buttons.four}
+  else if (lastChar == "5")  {lastPress  =  buttons.five}
+  else if (lastChar == "6")  {lastPress  =  buttons.six}
+  else if (lastChar == "7")  {lastPress  =  buttons.seven}
+  else if (lastChar == "8")  {lastPress  =  buttons.eight}
+  else if (lastChar == "9")  {lastPress  =  buttons.nine}
+  else if (lastChar == "0")  {lastPress  =  buttons.zero}
+  else if (lastChar == ".")  {lastPress  =  buttons.dot}
+  else if (lastChar == "(")  {lastPress  =  buttons.openparen}
+  else if (lastChar == ")")  {lastPress  =  buttons.closedparen}
+  else if (lastChar == "%")  {lastPress  =  buttons.modulo}
+  else if (lastChar == "^")  {lastPress  =  buttons.power}
+  else if (lastChar == "+")  {lastPress  =  buttons.plus}
+  else if (lastChar == "-")  {lastPress  =  buttons.minus}
+  else if (lastChar == "/")  {lastPress  =  buttons.divide}
+  else if (lastChar == "*")  {lastPress  =  buttons.times}
+
+
 }
 
 function womp(thisButton) {
@@ -175,4 +189,28 @@ function womp(thisButton) {
     thisButton.classList.add("womped");
   }, 500);
 
+}
+
+function okayToDot() {
+  let lastOpOrDot = "";
+  for (i=0 ; i<=buttons.displayArea.textContent.length ; i++) {
+
+    if (buttons.displayArea.textContent.slice(i,i+1)== "*"
+      ||buttons.displayArea.textContent.slice(i,i+1)== "+"
+      ||buttons.displayArea.textContent.slice(i,i+1)== "-"
+      ||buttons.displayArea.textContent.slice(i,i+1)== "/"
+      ||buttons.displayArea.textContent.slice(i,i+1)== "^"
+      ||buttons.displayArea.textContent.slice(i,i+1)== "%"
+      ||buttons.displayArea.textContent.slice(i,i+1)== ".")
+
+      {
+      lastOpOrDot = buttons.displayArea.textContent.slice(i,i+1);
+      }
+  }
+  if (lastOpOrDot=="."){
+    anotherDotAllowed = false;
+  }
+  else {
+    anotherDotAllowed = true;
+  }
 }
