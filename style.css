@@ -1,3 +1,8 @@
+*:active,
+*:hover {
+  cursor: default;
+}
+
 .number , .function , .special{
   border: none;
   background-color: #61B34F;
@@ -7,6 +12,7 @@
   line-height: calc(1.6vw + 12vh);
   font-family: 'Cousine', monospace;
   font-weight: 100;
+  user-select: none;
 }
 
 .function , #equalsign{
