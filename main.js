@@ -1,6 +1,16 @@
-// numberButtons = document.getElementsByClassName("number");
-// functionButtons = document.getElementsByClassName("function");
-// specialButtons = document.getElementsByClassName("special");
+// //
+// let math = require('mathjs');
+// let limitedEval = math.eval;
+//
+// math.import({
+//   'import':     function () { throw new Error('Function import is disabled') },
+//   'createUnit': function () { throw new Error('Function createUnit is disabled') },
+//   // 'eval':       function () { throw new Error('Function eval is disabled') },
+//   'parse':      function () { throw new Error('Function parse is disabled') },
+//   'simplify':   function () { throw new Error('Function simplify is disabled') },
+//   'derivative': function () { throw new Error('Function derivative is disabled') }
+// }, {override: true});
+
 
 calculator = document.getElementById("calculator");
 wrapper = document.getElementById("wrapper");
@@ -9,6 +19,8 @@ let buttons = {};
 let lastPress = "";
 let memoryLog = [0];
 let newEntry = true;
+let openParenCount = 0;
+let closeParenCount = 0;
 
 for (i=0;i<calculator.children.length;i++){
   let thisButton = calculator.children[i];
@@ -54,23 +66,31 @@ function clicker() {
 
 function clickNumber(thisButton) {
   if ((lastPress.type=="function")&&(thisButton.value==")")) {}
+  else if (thisButton.value==")" && closeParenCount>=openParenCount){}
   else if (newEntry) {
     buttons.displayArea.textContent = thisButton.value;
     newEntry = false;
     lastPress = thisButton;
     buttons.clear.textContent = "C"
+    if(thisButton.value == "("){openParenCount+=1}
+    if(thisButton.value == ")"){closeParenCount+=1}
   }
   else {
-    buttons.displayArea.textContent += thisButton.value;
-    lastPress = thisButton;
-    buttons.clear.textContent = "C"
+    if (thisButton.value=="(" && (lastPress.type != "function" && buttons.displayArea.textContent != "")){}
+    else{
+      buttons.displayArea.textContent += thisButton.value;
+      lastPress = thisButton;
+      buttons.clear.textContent = "C"
+      if(thisButton.value == "("){openParenCount+=1}
+      if(thisButton.value == ")"){closeParenCount+=1}
     }
-
+  }
 }
 
 function clickFunction(thisButton) {
     console.log(lastPress);
     if (buttons.displayArea.textContent == "" && thisButton.value != "-"){}
+
     else if ((lastPress.value=="(")&&(thisButton.value=="*" || thisButton.value=="/" || lastPress.value==".")){}
 
     else if (lastPress.value == "."){}
@@ -91,12 +111,16 @@ function clickFunction(thisButton) {
 function clickMemory() {
   console.log(memoryLog);
   buttons.displayArea.textContent = memoryLog.pop();
+  openParenCount = 0;
+  closeParenCount = 0;
 }
 
 function clickClear() {
   if (buttons.displayArea.textContent !== ""){
     buttons.displayArea.textContent = "";
     buttons.clear.textContent = "CM";
+    openParenCount = 0;
+    closeParenCount = 0;
   }
   else {
     wrapper.classList.remove("flipped");
@@ -106,12 +130,16 @@ function clickClear() {
       wrapper.classList.add("flipped");
     }, 500);
     memoryLog = [0];
+    openParenCount = 0;
+    closeParenCount = 0;
   };
 }
 
 function clickEquals(){
   // try{
     let answer = buttons.displayArea.textContent;
+    answer = answer.replace("^","**");
+    console.log("answer:",answer);
 
     if(lastPress.value == "(" || lastPress.type=="function" || lastPress.value == "."){}
 
