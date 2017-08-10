@@ -15,7 +15,7 @@
   user-select: none;
 }
 
-.function , #equalsign{
+.function {
   background-color: #82C276;
   color: darkgreen;
 }
@@ -116,4 +116,13 @@
 .flipped{
   filter: none;
   transition: .5s;
+}
+
+.womp{
+  background-color: red;
+  transition: .1s;
+}
+
+.womped{
+  transition: .3s;
 }
