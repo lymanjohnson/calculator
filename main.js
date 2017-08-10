@@ -1,23 +1,39 @@
+// numberButtons = document.getElementsByClassName("number");
+// functionButtons = document.getElementsByClassName("function");
+// specialButtons = document.getElementsByClassName("special");
 
-buttonsElements = document.getElementsByClassName("calcButton");
+calculator = document.getElementById("calculator");
 wrapper = document.getElementById("wrapper");
 
-console.log(wrapper);
-
 let buttons = {};
-let memoryLog = [];
+let lastPress = "";
+let memoryLog = [0];
 let newEntry = true;
 
-for (i=0;i<buttonsElements.length;i++){
-  let thisButton = buttonsElements[i];
-  if (thisButton.classList.contains("normal")){
-    thisButton.value = thisButton.innerHTML;
-    thisButton.type  = "normal"}
-  else {thisButton.value = thisButton.id;
-        thisButton.type = "special"}
-  thisButton.addEventListener("click",clickFunction);
+for (i=0;i<calculator.children.length;i++){
+  let thisButton = calculator.children[i];
+  thisButton.type = thisButton.classList[0];
+  thisButton.value = thisButton.innerHTML;
+  thisButton.addEventListener("click",clicker);
+
   buttons[thisButton.id] = thisButton;
 }
+
+// for (i=0;i<buttonsElements.length;i++){
+//   console.log(i);
+//   let thisButton = buttonsElements[i];
+//   thisButton.type  = thisButton.classList[0];
+//   thisButton.addEventListener("click",clickFunction);
+//   console.log(thisButton.classList.contains("special"));
+//   if (thisButton.classList.contains("special")==false){
+//     thisButton.value = thisButton.innerHTML;
+//   }
+//   else {
+//     thisButton.value = thisButton.id;
+//   }
+//
+//   buttons[thisButton.id] = thisButton;
+// }
 
 //special exceptions:
 buttons.power.value = "^";
@@ -26,17 +42,30 @@ buttons.times.value = "*";
 buttons.divide.value = "/";
 
 
-function clickFunction() {
-    if (this.type == "normal") {
-      if(newEntry == true){
-        if(this.type == "number") {buttons.displayArea.textContent=this.value;}
-        newEntry = false;
-      }
-      buttons.displayArea.textContent += this.value;
-      buttons.clear.textContent = "C";}
-    else if (this.value == "clear") {clickClear();}
-    else if (this.value == "memory") {clickMemory();}
-    else if (this.value == "equalsign") {clickEquals();}
+function clicker() {
+    console.log(this.type,this.value);
+    if      (this.type == "number")   {clickNumber(this);}
+    else if (this.type == "function") {clickFunction(this)}
+    else if (this.value == "CE")      {clickClear();}
+    else if (this.value == "MEM")     {clickMemory();}
+    else if (this.value == "=")       {clickEquals();}
+}
+
+
+function clickNumber(thisButton) {
+  if (newEntry) {
+    buttons.displayArea.textContent = thisButton.value;
+    newEntry = false;
+  }
+  else {
+    buttons.displayArea.textContent += thisButton.value;
+    }
+  lastPress = thisButton;
+}
+
+function clickFunction(thisButton) {
+    if (buttons.displayArea.textContent == "" || lastPress.type == "function"){};
+    else {buttons.displayArea.textContent += thisButton.value;}
 }
 
 function clickMemory() {
@@ -45,7 +74,6 @@ function clickMemory() {
 }
 
 function clickClear() {
-  // console.log(buttons.displayArea.textContent);
   if (buttons.displayArea.textContent !== ""){
     buttons.displayArea.textContent = "";
     buttons.clear.textContent = "CE";
@@ -57,15 +85,15 @@ function clickClear() {
       wrapper.classList.remove("flip");
       wrapper.classList.add("flipped");
     }, 500);
-    memoryLog = [];
+    memoryLog = [0];
   };
 }
 
 function clickEquals(){
   newEntry = true;
-  console.log(memoryLog[memoryLog.length]);
   let answer = buttons.displayArea.textContent;
-  if (memoryLog[memoryLog.length] != answer){
+  if (memoryLog[memoryLog.length-1] != answer){
+    console.log(memoryLog[memoryLog.length-1],answer);
     memoryLog.push(answer);}
   buttons.displayArea.textContent = eval(answer);
 }

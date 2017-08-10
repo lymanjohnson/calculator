@@ -1,6 +1,6 @@
 
 
-.calcButton {
+.number , .function , .special{
   border: none;
   background-color: #61B34F;
   color: white;
@@ -11,7 +11,7 @@
   font-weight: 100;
 }
 
-.function {
+.function , #equalsign{
   background-color: #82C276;
   color: darkgreen;
 }
