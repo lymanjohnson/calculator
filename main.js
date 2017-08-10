@@ -63,8 +63,9 @@ function clickClear() {
 
 function clickEquals(){
   newEntry = true;
-  console.log(buttons.displayArea.textContent);
+  console.log(memoryLog[memoryLog.length]);
   let answer = buttons.displayArea.textContent;
-  memoryLog.push(answer);
+  if (memoryLog[memoryLog.length] != answer){
+    memoryLog.push(answer);}
   buttons.displayArea.textContent = eval(answer);
 }
