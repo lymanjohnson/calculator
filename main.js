@@ -287,6 +287,16 @@ function womp(thisButton) {
 
 }
 
+function ding(thisButton) {
+  thisButton.classList.remove("dinged");
+  thisButton.classList.add("ding");
+  setTimeout(function () {
+    thisButton.classList.remove("ding");
+    thisButton.classList.add("ding");
+  }, 500);
+
+}
+
 function okayToDot() {
   let lastOpOrDot = "";
   for (i=0 ; i<=buttons.displayArea.textContent.length ; i++) {

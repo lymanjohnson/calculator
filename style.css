@@ -5,8 +5,6 @@
 
 .number , .function , .special{
   border: none;
-  background-color: #61B34F;
-  color: white;
   text-align: center;
   font-size: calc(1.3vw + 1.5vh);
   line-height: calc(1.6vw + 12vh);
@@ -15,16 +13,49 @@
   user-select: none;
 }
 
+.number {
+  background-color: #61B34F;
+  color: white;
+}
+
 .function {
   background-color: #82C276;
   color: darkgreen;
 }
 
 .special{
-  background-color: darkgreen;
+  background: darkgreen;
+  color: white;
+}
+
+.number:hover {
+  background: white;
+  border:2px solid #61B34F;
+  color: #61B34F;
+}
+
+.function:hover {
+  background-color: white;
+  border: 2px solid #82C276;
+  color: #82C276;
+}
+
+.special:hover{
+  background-color: white;
+  border: 2px solid darkgreen;
+  color: darkgreen;
 }
 
 #displayArea {
+  text-align: right;
+  padding-right: 1em;
+  /*border: .2vw solid darkgreen;
+  background-color: #82C276;*/
+}
+
+#displayArea:hover {
+  background: darkgreen;
+  color: white;
   text-align: right;
   padding-right: 1em;
   /*border: .2vw solid darkgreen;
@@ -125,4 +156,14 @@
 
 .womped{
   transition: .3s;
+}
+
+.ding{
+  background-color: rgb(150, 255, 213);
+  transition: .1s;
+}
+
+.dinged{
+  transition: .1s;
+  transition-delay: .1s
 }
