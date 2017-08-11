@@ -95,6 +95,7 @@ function clickMemory(thisButton) {
   newEntry = false;
   refreshLastPress();
   okayToDot();
+  if (buttons.displayArea.textContent==""){buttons.clear.textContent = "CM"}
 }
 
 function clickClear(thisButton) {
@@ -108,6 +109,7 @@ function clickClear(thisButton) {
     anotherDotAllowed = true;
   }
   else {
+    buttons.clear.textContent = "CM";
     wrapper.classList.remove("flipped");
     wrapper.classList.add("flip");
     setTimeout(function () {
