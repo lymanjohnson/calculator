@@ -3,7 +3,7 @@ wrapper = document.getElementById("wrapper");
 
 let buttons = {};
 let lastPress = "";
-let memoryLog = [0];
+let memoryLog = [];
 let newEntry = true;
 let openParenCount = 0;
 let closeParenCount = 0;
@@ -92,10 +92,12 @@ function clickMemory(thisButton) {
   buttons.displayArea.textContent = memoryLog.pop();
   openParenCount = 0;
   closeParenCount = 0;
-  newEntry = false;
   refreshLastPress();
   okayToDot();
-  if (buttons.displayArea.textContent==""){buttons.clear.textContent = "CM"}
+  if(buttons.displayArea.textContent!=""){newEntry = false;}
+  else if (buttons.displayArea.textContent==""){
+    buttons.clear.textContent = "CM";
+    newEntry = true;}
 }
 
 function clickClear(thisButton) {
@@ -116,7 +118,7 @@ function clickClear(thisButton) {
       wrapper.classList.remove("flip");
       wrapper.classList.add("flipped");
     }, 500);
-    memoryLog = [0];
+    memoryLog = [];
     openParenCount = 0;
     closeParenCount = 0;
     newEntry = true;
