@@ -85,6 +85,7 @@ buttons.backspace.value = "backspace";
 
 
 function clicker() {
+    if (lastPress === undefined) {lastPress == ""}
     if      (this.type == "number")     {clickNumber(this);}
     else if (this.type == "function")   {clickFunction(this);}
     else if (this.value == "CM")        {clickClear(this);}
@@ -164,15 +165,13 @@ function clickMemory(thisButton) {
   closeParenCount = 0;
   refreshLastPress();
   okayToDot();
-  if(buttons.displayArea.textContent!=""){newEntry = false;}
-  else if (buttons.displayArea.textContent==""){
+  newEntry = true;
+  if (buttons.displayArea.textContent==""){
     buttons.clear.textContent = "CM";
-    newEntry = true;}
-  if (memoryLog.length == 0) {
-    lastPress = "";
-    newEntry = true;
-    womp(thisButton);
   }
+  // if (lastPress === undefined) {
+  //   lastPress = "";
+  // }
 }
 
 function clickClear(thisButton) {
@@ -233,7 +232,7 @@ function clickBackspace(thisButton){
 
     refreshLastPress();
     okayToDot();
-    if (lastPress===undefined){
+    if (lastPress === undefined || lastPress == ""){
       newEntry = true;
       lastPress = "";
     }
@@ -242,9 +241,8 @@ function clickBackspace(thisButton){
 
 function refreshLastPress(){
   let lastChar = buttons.displayArea.textContent.slice(-1);
-
   lastPress = findButtonFromCharacter(lastChar);
-
+  if (lastPress === undefined) {lastPress=""}
 }
 
 function findButtonFromCharacter(string){
@@ -264,14 +262,15 @@ function findButtonFromCharacter(string){
   else if (string == "(")  {retrievedButton  =  buttons.openparen}
   else if (string == ")")  {retrievedButton  =  buttons.closedparen}
   else if (string == "%")  {retrievedButton  =  buttons.modulo}
-  else if (string == "^")  {retrievedButton  =  buttons.power}
+  else if (string == "^" || string == "e"  || string == "E")  {retrievedButton  =  buttons.power}
   else if (string == "+")  {retrievedButton  =  buttons.plus}
   else if (string == "-")  {retrievedButton  =  buttons.minus}
   else if (string == "/")  {retrievedButton  =  buttons.divide}
-  else if (string == "*")  {retrievedButton  =  buttons.times}
+  else if (string == "*" || string == "x" || string == "X")  {retrievedButton  =  buttons.times}
   else if (string == "m" || string == "M") {retrievedButton  =  buttons.memory}
   else if (string == "c" || string == "C") {retrievedButton  =  buttons.clear}
   else if (string == "b" || string == "B" || string == "\\") {retrievedButton  =  buttons.backspace}
+  else if (string == "Enter") {retrievedButton = buttons.equalsign}
 
   return retrievedButton;
 
