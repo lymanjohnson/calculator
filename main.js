@@ -140,7 +140,7 @@ function clickEquals(thisButton){
       newEntry = true;
       if (memoryLog[memoryLog.length-1] != answer){
         memoryLog.push(answer);}
-      buttons.displayArea.textContent = eval(answer);
+      buttons.displayArea.textContent = math.eval(answer);
     }
 }
 
