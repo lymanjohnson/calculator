@@ -168,6 +168,11 @@ function clickMemory(thisButton) {
   else if (buttons.displayArea.textContent==""){
     buttons.clear.textContent = "CM";
     newEntry = true;}
+  if (memoryLog.length == 0) {
+    lastPress = "";
+    newEntry = true;
+    womp(thisButton);
+  }
 }
 
 function clickClear(thisButton) {
