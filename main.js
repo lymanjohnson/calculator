@@ -2,14 +2,14 @@ calculator = document.getElementById("calculator");
 wrapper = document.getElementById("wrapper");
 
 // https://stackoverflow.com/questions/11101364/javascript-detect-shift-key-down-within-another-function
-// var shiftDown = false;
-// var setShiftDown = function(event){
+// let shiftDown = false;
+// let setShiftDown = function(event){
 //     if(event.keyCode === 16 || event.charCode === 16){
 //         window.shiftDown = true;
 //     }
 // };
 //
-// var setShiftUp = function(event){
+// let setShiftUp = function(event){
 //     if(event.keyCode === 16 || event.charCode === 16){
 //         window.shiftDown = false;
 //     }
@@ -17,6 +17,15 @@ wrapper = document.getElementById("wrapper");
 //
 // window.addEventListener? document.addEventListener('keydown', setShiftDown) : document.attachEvent('keydown', setShiftDown);
 // window.addEventListener? document.addEventListener('keyup', setShiftUp) : document.attachEvent('keyup', setShiftUp);
+//
+//
+// if (event.shiftKey) {
+//     console.log("The SHIFT key was pressed!");
+// } else {
+//     console.log("The SHIFT key was NOT pressed!");
+// }
+
+window.addEventListener("keypress", keyboardFunction, false);
 
 let buttons = {};
 let lastPress = "";
@@ -25,6 +34,12 @@ let newEntry = true;
 let openParenCount = 0;
 let closeParenCount = 0;
 let anotherDotAllowed = true;
+
+function keyboardFunction(event) {
+  console.log(event.key);
+  console.log(findButtonFromCharacter(event.key));
+  keyboardClicker(findButtonFromCharacter(event.key));
+}
 
 // window.onkeydown = function (e) {
 //     var code = e.keyCode ? e.keyCode : e.which;
@@ -70,12 +85,21 @@ buttons.backspace.value = "backspace";
 
 
 function clicker() {
-    if      (this.type == "number")   {clickNumber(this);}
-    else if (this.type == "function") {clickFunction(this);}
-    else if (this.value == "CM")      {clickClear(this);}
-    else if (this.value == "MEM")     {clickMemory(this);}
-    else if (this.value == "=")       {clickEquals(this);}
+    if      (this.type == "number")     {clickNumber(this);}
+    else if (this.type == "function")   {clickFunction(this);}
+    else if (this.value == "CM")        {clickClear(this);}
+    else if (this.value == "MEM")       {clickMemory(this);}
+    else if (this.value == "=")         {clickEquals(this);}
     else if (this.value == "backspace") {clickBackspace(this);}
+}
+
+function keyboardClicker(thisKey) {
+    if      (thisKey.type == "number")     {clickNumber(thisKey);}
+    else if (thisKey.type == "function")   {clickFunction(thisKey);}
+    else if (thisKey.value == "CM")        {clickClear(thisKey);}
+    else if (thisKey.value == "MEM")       {clickMemory(thisKey);}
+    else if (thisKey.value == "=")         {clickEquals(thisKey);}
+    else if (thisKey.value == "backspace") {clickBackspace(thisKey);}
 }
 
 
@@ -192,6 +216,7 @@ function clickBackspace(thisButton){
 
   if (buttons.displayArea.textContent == "") {
     buttons.clear.textContent = "CM"
+    lastPress="";
     womp(thisButton)}
   else {
     newEntry = false;
@@ -203,31 +228,47 @@ function clickBackspace(thisButton){
 
     refreshLastPress();
     okayToDot();
+    if (lastPress===undefined){
+      newEntry = true;
+      lastPress = "";
+    }
   }
 }
 
 function refreshLastPress(){
   let lastChar = buttons.displayArea.textContent.slice(-1);
-  if      (lastChar == "1")  {lastPress   =  buttons.one}
-  else if (lastChar == "2")  {lastPress  =  buttons.two}
-  else if (lastChar == "3")  {lastPress  =  buttons.three}
-  else if (lastChar == "4")  {lastPress  =  buttons.four}
-  else if (lastChar == "5")  {lastPress  =  buttons.five}
-  else if (lastChar == "6")  {lastPress  =  buttons.six}
-  else if (lastChar == "7")  {lastPress  =  buttons.seven}
-  else if (lastChar == "8")  {lastPress  =  buttons.eight}
-  else if (lastChar == "9")  {lastPress  =  buttons.nine}
-  else if (lastChar == "0")  {lastPress  =  buttons.zero}
-  else if (lastChar == ".")  {lastPress  =  buttons.dot}
-  else if (lastChar == "(")  {lastPress  =  buttons.openparen}
-  else if (lastChar == ")")  {lastPress  =  buttons.closedparen}
-  else if (lastChar == "%")  {lastPress  =  buttons.modulo}
-  else if (lastChar == "^")  {lastPress  =  buttons.power}
-  else if (lastChar == "+")  {lastPress  =  buttons.plus}
-  else if (lastChar == "-")  {lastPress  =  buttons.minus}
-  else if (lastChar == "/")  {lastPress  =  buttons.divide}
-  else if (lastChar == "*")  {lastPress  =  buttons.times}
 
+  lastPress = findButtonFromCharacter(lastChar);
+
+}
+
+function findButtonFromCharacter(string){
+  let retrievedButton;
+
+  if      (string == "1")  {retrievedButton  =  buttons.one}
+  else if (string == "2")  {retrievedButton  =  buttons.two}
+  else if (string == "3")  {retrievedButton  =  buttons.three}
+  else if (string == "4")  {retrievedButton  =  buttons.four}
+  else if (string == "5")  {retrievedButton  =  buttons.five}
+  else if (string == "6")  {retrievedButton  =  buttons.six}
+  else if (string == "7")  {retrievedButton  =  buttons.seven}
+  else if (string == "8")  {retrievedButton  =  buttons.eight}
+  else if (string == "9")  {retrievedButton  =  buttons.nine}
+  else if (string == "0")  {retrievedButton  =  buttons.zero}
+  else if (string == ".")  {retrievedButton  =  buttons.dot}
+  else if (string == "(")  {retrievedButton  =  buttons.openparen}
+  else if (string == ")")  {retrievedButton  =  buttons.closedparen}
+  else if (string == "%")  {retrievedButton  =  buttons.modulo}
+  else if (string == "^")  {retrievedButton  =  buttons.power}
+  else if (string == "+")  {retrievedButton  =  buttons.plus}
+  else if (string == "-")  {retrievedButton  =  buttons.minus}
+  else if (string == "/")  {retrievedButton  =  buttons.divide}
+  else if (string == "*")  {retrievedButton  =  buttons.times}
+  else if (string == "m" || string == "M") {retrievedButton  =  buttons.memory}
+  else if (string == "c" || string == "C") {retrievedButton  =  buttons.clear}
+  else if (string == "b" || string == "B" || string == "\\") {retrievedButton  =  buttons.backspace}
+
+  return retrievedButton;
 
 }
 
