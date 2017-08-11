@@ -112,7 +112,7 @@ function clickNumber(thisButton) {
   else if (lastPress.value=="(" && thisButton.value==")"){womp(thisButton)}
   else if (newEntry) {
     buttons.displayArea.textContent = thisButton.value;
-    // if(thisButton.value =="."){anotherDotAllowed = false;}
+    if(thisButton.value =="."){anotherDotAllowed = false;}
     newEntry = false;
     lastPress = thisButton;
     buttons.clear.textContent = "C"
