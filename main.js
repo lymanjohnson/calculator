@@ -1,6 +1,23 @@
 calculator = document.getElementById("calculator");
 wrapper = document.getElementById("wrapper");
 
+// https://stackoverflow.com/questions/11101364/javascript-detect-shift-key-down-within-another-function
+// var shiftDown = false;
+// var setShiftDown = function(event){
+//     if(event.keyCode === 16 || event.charCode === 16){
+//         window.shiftDown = true;
+//     }
+// };
+//
+// var setShiftUp = function(event){
+//     if(event.keyCode === 16 || event.charCode === 16){
+//         window.shiftDown = false;
+//     }
+// };
+//
+// window.addEventListener? document.addEventListener('keydown', setShiftDown) : document.attachEvent('keydown', setShiftDown);
+// window.addEventListener? document.addEventListener('keyup', setShiftUp) : document.attachEvent('keyup', setShiftUp);
+
 let buttons = {};
 let lastPress = "";
 let memoryLog = [];
@@ -8,6 +25,33 @@ let newEntry = true;
 let openParenCount = 0;
 let closeParenCount = 0;
 let anotherDotAllowed = true;
+
+window.onkeydown = function (e) {
+    var code = e.keyCode ? e.keyCode : e.which;
+    if      (code === 49) {} // 1
+    else if (code === 50)   {} // 2
+    else if (code === 51)   {} // 3
+    else if (code === 52)   {} // 4
+    else if (code === 53)   {} // 5 and %
+    else if (code === 54)   {} // 6 and ^
+    else if (code === 55)   {} // 7
+    else if (code === 56)   {} // 8 and 8
+    else if (code === 57)   {} // 9 and (
+    else if (code === 48)   {} // 0 and )
+    else if (code === 190)   {} // .
+    else if (code === 219)   {} // ( alternate
+    else if (code === 221)   {} // ) alternate
+    else if (code === 187)   {} // + and =
+    else if (code === 189)   {} // -
+    else if (code === 88)   {} // x
+    else if (code === 191)   {} // /
+    else if (code === 80)   {} // p (plus)
+    else if (code === 69)   {} // e (exp)
+    else if (code === 13)   {} // enter
+    else if (code === 8)   {} // backspace
+    else if (code === 77)   {} // m
+    else if (code === 67)   {} // c
+};
 
 for (i=0;i<calculator.children.length;i++){
   let thisButton = calculator.children[i];
@@ -140,7 +184,7 @@ function clickEquals(thisButton){
       newEntry = true;
       if (memoryLog[memoryLog.length-1] != answer){
         memoryLog.push(answer);}
-      buttons.displayArea.textContent = eval(answer);
+      buttons.displayArea.textContent = math.eval(answer);
     }
 }
 
