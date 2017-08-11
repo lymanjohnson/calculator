@@ -118,11 +118,13 @@ function clickNumber(thisButton) {
     buttons.clear.textContent = "C"
     if(thisButton.value == "("){openParenCount+=1}
     if(thisButton.value == ")"){closeParenCount+=1}
+     ding(thisButton);
   }
   else {
     if (thisButton.value=="(" && lastPress.value != "(" && lastPress.type != "function" ) {womp(thisButton)}
     else if (thisButton.value == "." && anotherDotAllowed==false){womp(thisButton)}
     else{
+      ding(thisButton);
       if(thisButton.value =="."){anotherDotAllowed = false;}
       buttons.displayArea.textContent += thisButton.value;
       lastPress = thisButton;
@@ -143,6 +145,7 @@ function clickFunction(thisButton) {
     else if (lastPress.value == "."){womp(thisButton)}
 
     else if (lastPress.type == "function"){
+      ding(thisButton);
       buttons.displayArea.textContent = buttons.displayArea.textContent.substr(0, buttons.displayArea.textContent.length - 1)+thisButton.value;
       buttons.clear.textContent = "C"
       newEntry = false;
@@ -150,6 +153,7 @@ function clickFunction(thisButton) {
       lastPress=thisButton;
     }
     else {
+      ding(thisButton);
       buttons.displayArea.textContent += thisButton.value;
       buttons.clear.textContent = "C"
       lastPress = thisButton;
@@ -161,6 +165,7 @@ function clickFunction(thisButton) {
 function clickMemory(thisButton) {
   //console.log(memoryLog);
   if (memoryLog.length == 0 && buttons.displayArea.textContent=="") {womp(thisButton)}
+  else {ding(thisButton)}
   buttons.displayArea.textContent = memoryLog.pop();
   openParenCount = 0;
   closeParenCount = 0;
@@ -179,6 +184,7 @@ function clickClear(thisButton) {
   if (buttons.displayArea.textContent !== ""){
     buttons.displayArea.textContent = "";
     buttons.clear.textContent = "CM";
+    ding(thisButton);
     openParenCount = 0;
     closeParenCount = 0;
     newEntry = true;
@@ -210,6 +216,7 @@ function clickEquals(thisButton){
     else if (openParenCount != closeParenCount){womp(thisButton)}
 
     else{
+      ding(thisButton);
       newEntry = true;
       if (memoryLog[memoryLog.length-1] != answer){
         memoryLog.push(answer);}
@@ -224,6 +231,7 @@ function clickBackspace(thisButton){
     lastPress="";
     womp(thisButton)}
   else {
+    ding(thisButton);
     newEntry = false;
     if (buttons.displayArea.textContent.length==1){buttons.clear.textContent = "CM"}
     if (buttons.displayArea.textContent.slice(-1) == ")") {closeParenCount--}
@@ -264,14 +272,14 @@ function findButtonFromCharacter(string){
   else if (string == ")")  {retrievedButton  =  buttons.closedparen}
   else if (string == "%")  {retrievedButton  =  buttons.modulo}
   else if (string == "^" || string == "e"  || string == "E")  {retrievedButton  =  buttons.power}
-  else if (string == "+")  {retrievedButton  =  buttons.plus}
+  else if (string == "+" || string == "p" || string == "P")  {retrievedButton  =  buttons.plus}
   else if (string == "-")  {retrievedButton  =  buttons.minus}
   else if (string == "/")  {retrievedButton  =  buttons.divide}
   else if (string == "*" || string == "x" || string == "X")  {retrievedButton  =  buttons.times}
   else if (string == "m" || string == "M") {retrievedButton  =  buttons.memory}
   else if (string == "c" || string == "C") {retrievedButton  =  buttons.clear}
   else if (string == "b" || string == "B" || string == "\\") {retrievedButton  =  buttons.backspace}
-  else if (string == "Enter") {retrievedButton = buttons.equalsign}
+  else if (string == "Enter" || string == "=") {retrievedButton = buttons.equalsign}
 
   return retrievedButton;
 
@@ -292,8 +300,8 @@ function ding(thisButton) {
   thisButton.classList.add("ding");
   setTimeout(function () {
     thisButton.classList.remove("ding");
-    thisButton.classList.add("ding");
-  }, 500);
+    thisButton.classList.add("dinged");
+  }, 300);
 
 }
 

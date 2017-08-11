@@ -3,6 +3,22 @@
   cursor: default;
 }
 
+#instructions{
+  display: flex;
+  width: 90%;
+  margin: none;
+  padding-left: 2%;
+  font-family: 'Cousine', monospace;
+  font-size: calc(.6vw + .6vh);
+}
+
+.instructionblock {
+  flex-grow: 1;
+  flex-shrink:1;
+  padding: none;
+  margin: none;
+}
+
 .number , .function , .special{
   border: none;
   text-align: center;
@@ -29,21 +45,27 @@
 }
 
 .number:hover {
-  background: white;
+  filter: brightness(200%);
+  color: #063e23
+  /*background: white;
   border:2px solid #61B34F;
-  color: #61B34F;
+  color: #61B34F;*/
 }
 
 .function:hover {
-  background-color: white;
+  filter: brightness(200%);
+  color: #063e23;
+  /*background-color: white;
   border: 2px solid #82C276;
-  color: #82C276;
+  color: #82C276;*/
 }
 
 .special:hover{
-  background-color: white;
+  filter: brightness(200%);
+  color: white;
+  /*background-color: white;
   border: 2px solid darkgreen;
-  color: darkgreen;
+  color: darkgreen;*/
 }
 
 #displayArea {
@@ -58,6 +80,7 @@
   color: white;
   text-align: right;
   padding-right: 1em;
+  filter:brightness(100%);
   /*border: .2vw solid darkgreen;
   background-color: #82C276;*/
 }
@@ -164,6 +187,5 @@
 }
 
 .dinged{
-  transition: .1s;
-  transition-delay: .1s
+  transition: .5s;
 }
