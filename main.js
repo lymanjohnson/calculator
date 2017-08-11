@@ -160,6 +160,7 @@ function clickFunction(thisButton) {
 
 function clickMemory(thisButton) {
   //console.log(memoryLog);
+  if (memoryLog.length == 0 && buttons.displayArea.textContent=="") {womp(thisButton)}
   buttons.displayArea.textContent = memoryLog.pop();
   openParenCount = 0;
   closeParenCount = 0;
