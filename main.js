@@ -66,7 +66,8 @@ function clickNumber(thisButton) {
 }
 
 function clickFunction(thisButton) {
-    if (buttons.displayArea.textContent == "" && thisButton.value != "-" && thisButton.value != "+") {womp(thisButton)}
+    if (thisButton.value == lastPress.value){womp(thisButton)}
+    else if (buttons.displayArea.textContent == "" && thisButton.value != "-" && thisButton.value != "+") {womp(thisButton)}
     else if ((buttons.displayArea.textContent == "+" || buttons.displayArea.textContent == "-") && thisButton.value != "-" && thisButton.value != "+"){womp(thisButton)}
     else if ((lastPress.value=="(")&&(thisButton.value=="*" || thisButton.value=="/" || lastPress.value==".")){womp(thisButton)}
 
@@ -77,6 +78,7 @@ function clickFunction(thisButton) {
       buttons.clear.textContent = "C"
       newEntry = false;
       anotherDotAllowed = true;
+      lastPress=thisButton;
     }
     else {
       buttons.displayArea.textContent += thisButton.value;
