@@ -75,11 +75,11 @@
   background-color: #82C276;*/
 }
 
-#displayArea:hover {
+#displayArea:hover , #logo:hover{
   background: darkgreen;
   color: white;
-  text-align: right;
-  padding-right: 1em;
+  /*text-align: right;
+  padding-right: 1em;*/
   filter:brightness(100%);
   /*border: .2vw solid darkgreen;
   background-color: #82C276;*/
