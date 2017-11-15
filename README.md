@@ -1,7 +1,5 @@
 [Multi-Function Calculator With Robust Error Proofing](https://lymanjohnson.github.io/calculator/)
 
-[Click here to use it](https://lymanjohnson.github.io/calculator/)
-
 - Logic loops prevent user from entering input that would throw most parsing errors.
 - Buttons flash red if pushing it would have created an error.
 - Memory log saves all entries (not answers, but the entry that yielded the answer).
